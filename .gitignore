@@ -1,0 +1,8 @@
+pdfs/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.pdf
+*_tmp.md
+!modelos/img/*
