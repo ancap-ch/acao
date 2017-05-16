@@ -1,0 +1,189 @@
+\def \caixa {\nopagebreak\hfill\textcolor{lightgray}{$\Box$}}
+
+
+\documentclass[a6paper]{article}
+\usepackage[17pt]{extsizes}
+\usepackage[paperwidth=136.6mm,paperheight=76.4mm,left=0.18cm,top=.1cm,right=0.3cm,bottom=0.15cm,marginparwidth=0mm,marginparsep=0mm]{geometry}
+
+\input{\modelos/mobile.tex}
+
+
+\pdfminorversion=6
+\pdfcompresslevel=9
+\pdfobjcompresslevel=3
+
+\usepackage[utf8]{inputenc}
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+
+% para o markdown
+\usepackage[footnotes,definitionLists,hashEnumerators,smartEllipses, hybrid]{markdown}
+  \markdownSetup{rendererPrototypes={
+    link = {\href{#2}{#1}}
+  }}
+\newcommand{\hash}{\#}
+
+\usepackage[brazil]{babel}
+\usepackage[babel=true,kerning=true]{microtype}
+
+\usepackage{tocloft} % para mudar o titulo do indice
+\usepackage{etoc} % para saber se tem indice ou não
+% https://tex.stackexchange.com/questions/94961/how-to-check-in-latex-whether-the-table-of-content-is-empty-or-not-before-added
+\etocchecksemptiness % do not display empty local table of contents
+\etocnotocifnotoc % do not display empty global table of contents
+
+% usado para a capa...
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{varwidth}
+\pgfdeclarelayer{bg}    % declare background layer
+\pgfdeclarelayer{front} 
+\pgfsetlayers{bg,main,front}  % set the order of the layers (main is the standard layer)
+\usepackage[hidelinks,
+pdftex,
+  pdfauthor={\mautor},
+  pdftitle={\mtitulo},
+  pdfsubject={Ancap/acao-humana},
+  pdfkeywords={},
+  pdfproducer={source in markdown},
+  pdfcreator={AncapChannel}
+]{hyperref}
+%\usepackage{calc}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{ifthen}
+
+
+\DeclareUrlCommand\Hurl{%
+  \def\UrlLeft{\langle}%
+  \def\UrlRight{\rangle}%
+}
+\renewcommand*{\UrlFont}{\ttfamily\scriptsize\relax}
+
+%\usepackage{psvectorian}
+%\let\clipbox\relax
+\usepackage{pgfornament}
+
+
+% usado par ao índice
+\addto\captionsbrazil{
+  \renewcommand{\contentsname}
+    {}% A frase que aparece no lugar de "Conteúdo" no índice
+}
+
+% usado para limitar o tamanho das imagens
+\usepackage[export]{adjustbox}
+
+% usado para esticar e cortar imagens
+% https://tex.stackexchange.com/questions/60918/how-to-scale-and-then-trim-an-image
+\newlength{\oH}
+\newlength{\oW}
+\newlength{\rH}
+\newlength{\rW}
+\newlength{\cH}
+\newlength{\cW}
+\newcommand\ClipImage[3]{% width, height, image
+\settototalheight{\oH}{\includegraphics{#3}}%
+\settowidth{\oW}{\includegraphics{#3}}%
+\setlength{\rH}{\oH * \ratio{#1}{\oW}}%
+\setlength{\rW}{\oW * \ratio{#2}{\oH}}%
+\ifthenelse{\lengthtest{\rH < #2}}{%
+    \setlength{\cW}{(\rW-#1)*\ratio{\oH}{#2}}%
+    \adjincludegraphics[height=#2,clip,trim=0 0 \cW{} 0]{#3}%
+}{%
+    \setlength{\cH}{(\rH-#2)*\ratio{\oW}{#1}}%
+    \adjincludegraphics[width=#1,clip,trim=0 \cH{} 0 0]{#3}%
+}%
+}
+
+
+%\def \titulo {Título do Artigo} 
+%\def \autor {} 
+%\def \tradutor {} 
+%\def \url {} 
+%\def \CriadorDestePDF {}
+
+% usado para fonte decorativa
+\usepackage{lettrine}
+%\usepackage{GoudyIn}
+\usepackage{Zallman}
+%\renewcommand{\LettrineFontHook}{\GoudyInfamily{}}
+\renewcommand{\LettrineFontHook}{\Zallmanfamily{}}
+
+\newcommand{\DECORAR}[3][]{\lettrine[lines=3,loversize=.115,#1]{#2}{#3}}
+
+% para listar o link da discussão e a data:
+\makeatletter
+\def\blfootnote{\xdef\@thefnmark{$ \sim $}\@footnotetext}
+\makeatother
+% https://tex.stackexchange.com/questions/250221/supressing-the-footnote-number
+
+\makeatletter
+\newcommand*{\myfnsymbolsingle}[1]{%
+  \ensuremath{%
+    \ifcase#1% 0
+    \or % 1
+      *%   
+    \or % 2
+      \dagger
+    \or % 3  
+      \ddagger
+    \or % 4   
+      \mathsection
+    \or % 5
+      \mathparagraph
+    \else % >= 6
+      \@ctrerr  
+    \fi
+  }%   
+}   
+\makeatother
+\newcommand*{\myfnsymbol}[1]{%
+  \myfnsymbolsingle{\value{#1}}%
+}
+\makeatletter
+\newcommand*{\greekfnsymbolsingle}[1]{%
+  \ensuremath{%
+  \ifcase#1\or\alpha\or\beta\or\gamma\or\delta\or\varepsilon
+    \or\zeta\or\eta\or\theta\or\iota\or\kappa\or\lambda
+    \or\mu\or\nu\or\xi\or o\or\pi\or\varrho\or\sigma
+    \or\tau\or\upsilon\or\phi\or\chi\or\psi\or\omega
+    \else\@ctrerr\fi
+  }%   
+}   
+\makeatother
+\newcommand*{\greekfnsymbol}[1]{%
+  \greekfnsymbolsingle{\value{#1}}%
+}
+
+\usepackage[hang,flushmargin,multiple]{footmisc}
+\newcommand{\nota}[1]{[#1]}
+\let\oldfootnote\footnote
+\renewcommand{\footnote}[1]{\oldfootnote{#1\caixa}}
+
+
+% cor
+\usepackage[prefix=s]{xcolor-solarized}
+\usepackage{pagecolor}
+\ifdefined\light
+  \colorlet{srebase03}{sbase3}
+  \colorlet{srebase02}{sbase2}
+  \colorlet{srebase01}{sbase1}
+  \colorlet{srebase00}{sbase0}
+  \colorlet{srebase0}{sbase00}
+  \colorlet{srebase1}{sbase01}
+  \colorlet{srebase2}{sbase02}
+  \colorlet{srebase3}{sbase03}
+\else
+  \colorlet{srebase03}{sbase03}
+  \colorlet{srebase02}{sbase02}
+  \colorlet{srebase01}{sbase01}
+  \colorlet{srebase00}{sbase00}
+  \colorlet{srebase0}{sbase0}
+  \colorlet{srebase1}{sbase1}
+  \colorlet{srebase2}{sbase2}
+  \colorlet{srebase3}{sbase3}
+\fi
+

@@ -1,0 +1,60 @@
+% Opções de tamanho de fonte: Huge, huge, LARGE, Large, large, normalsize, small
+  
+% Exemplo de título e subtítulo:
+\def \titulo {Título do Artigo\LARGE{: Subtítulo do Artigo}} 
+  
+% Exemplo de dois autores:
+\def \autor {Autor do Silva \& Autor Ferreira}
+
+% Exemplo de dois autores com a mesma filiação e emails distintos:
+\def \autor {
+Autor~A\raisebox{5pt}{\normalsize$^{\ast 1}$} \& 
+Autor~B\raisebox{5pt}{\normalsize$^{\dag 1}$}\\
+{\normalfont\footnotesize 
+$^1$ Redator, Instituto A\quad
+$^\ast$\texttt{emailA@email.com}\quad
+$^\dag$\texttt{emailB@email.com}}}
+% Símbolos para notas de rodapé: \ast, \dag, \ddag, \S, \P, ...
+  
+% Exemplo de tradutor e revisor
+\def \tradutor {Fulano da Silva\newline\& \normalfont{Revisado por} \textsc{Beltrano da Silva}} 
+
+% no caso nao-mobile, se quiser que novas seções, exceto a primeira, inicie em uma nova página:
+\def \separarSecoes {} % nota: deve estar antes dos comandos de preâmbulo! (no começo do main.tex)
+
+% no caso mobile, se quiser que o o quinto nível de hierarquia (nível-parágrafo) também inicie em uma nova página:
+\def \clearparagraph {} % nota: deve estar antes dos comandos de preâmbulo! (no começo do main.tex)
+
+% zera o rodapé a cada seção (requer, para não-mobile, que o separarSecoes esteja ativado)
+\def \zeraRodape {} 
+
+% -------------------------------------------------------------
+% V. 1.2.2
+% -------------------------------------------------------------
+% 
+% 1.2.2:
+%  alterado tamanho das fontes do não-mobile, 72 CPL agora
+%  alterando estrutura dos documentos. padronizar nome de capa, nomencluatura com _mob..
+%  opção de incluir índice ou não está obsoleta. Não precisa mais.
+%  add blackbox no final do documento
+%  movido os comentários sobre o texto como um footnote no final do texto (arquivo comments.md)
+%  movido as informações de data e "criador", e também do link da discussão, para um footnote no começo do texto
+% 1.2.1:
+%  fix de newline depois do índice
+%  adição dos parágrafos como quebradores de página para mobile (optativo)
+%  toc depth forçado em 2 para mobile
+%  adicionado a funcionalidade que emula o clearpage das seções para formatos que não é mobile
+%  capa agora é redimensionada e cortada automaticamente para o modo mobile
+%  adicionado opção de zerar o rodapé a cada seção
+% 1.2:
+%  enviado para o gallery
+%  seções, subseções e sub-subseções quebram a página automaticamente, exceto "as primeiras" (a primeira subseção, etc).
+%  estrutura dos arquivos e main.tex modificados
+%  tamanho da fonte para folha a4 modificada.
+% 1.1.1:
+%  fix de newline depois da capa
+% 1.1.0:
+%  novo feature: opção para gerar PDF para serem visualizados em uma tela de celular. 
+%  fix: Informações do artigo ficaram mais centralizadas verticalmente.
+%  improv: main.tex mais simples
+% -------------------------------------------------------------

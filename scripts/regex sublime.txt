@@ -1,0 +1,55 @@
+﻿regex sublime
+
+
+do mises.br
+
+\[\[(\d+)\]\]\(#_ftn\d+\)
+[^\1]
+
+
+
+
+troca os - por "-  ... deve ser aplicado até o documento parar de "mudar"
+^([^\[].*\w)-(\w.*$)
+\1"-\2
+
+
+
+
+
+coloca os quadradinhos antes do início de novas subseções
+(^(?![#\n\[])[^\n]*)((\n)+^)(### )
+\1\\fimsubsubsec\2\4
+
+(^(?![#\n\[])[^\n]*)((\n)+^)(## )
+\1\\fimsubsec\2\4
+
+(^(?![#\n\[])[^\n]*)((\n)+^)(# )
+\1\\fimsec\2\4
+
+
+
+tem que arrumar os &, % e $ e \
+
+
+tem que arumar os ""{} (ja considerando o regex anterior, do "-)
+("[^-].+?"(?!-))
+\1{}
+
+alternativo, mais bonito mas a fonte fica ilegível*:
+"([^-].+?)"(?!-)
+\\textquotedblleft \1\\textquotedblright
+
+*tem que usar naquelas transformações automáticas e temporárias
+aplicar regex automaticamente, pelo  python.
+
+
+
+tem que ver se a nota de rodapé tem links.. se tiver.. tem que dar um jeito..
+
+
+substituição de links por notas de rodapé diferentes..
+([^!])\[([^]]+?)\]\(([^)]+?)\)
+\1\2\\footnoteB{\3}
+
+

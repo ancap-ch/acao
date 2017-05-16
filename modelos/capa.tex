@@ -1,0 +1,89 @@
+\noindent\begin{tikzpicture}[remember picture,overlay]
+      \coordinate (nw) at (current page.north west);
+      \ifdefined\capa
+      \noindent\begin{pgfonlayer}{bg}    % select the background layer
+      \noindent\node[inner sep=0, anchor=north west,name=capa] at (current page.north west) {
+        \noindent\ClipImage{\paperwidth}{\paperheight}{\capa}
+      };
+            
+        \end{pgfonlayer}
+      \fi
+
+    
+	\begin{pgfonlayer}{front}    % select the background layer
+  %\coordinate [ajuste] (nome) at (lugar)
+  
+  	  \coordinate (zero) at (0,0);
+  	  \coordinate (secao_c2) at ($ (current page.south west) + (0,0) $);
+      
+         \def \secaoL {-0.005cm}%.5cm}
+         \def \secaoU {-0.005cm}%-.5cm}
+        
+      \ifdefined\secao
+        \node [name=secao_t2,
+        anchor=south west,
+        fill=srebase03,
+        text = srebase1,
+        %align=center %,
+        %text width=.8\paperwidth
+        %minimum width=\paperwidth
+        ,fill opacity=0.9
+        ,text opacity=1
+        %,left=-6.1cm 
+        ] at ($ (current page.south west) + (\secaoL,\secaoU) $) {
+        \ifdefined\mobile
+     		\begin{varwidth}{.925\textwidth}{\textsc{\secao}}\end{varwidth}
+      	\else
+     		\begin{varwidth}{\textwidth}{\textsc{\secao}}\end{varwidth}
+     	\fi
+        };
+        
+        \coordinate [above=0.01\paperheight] (capitulo_c2) at (secao_t2.north west);
+      \else
+  	  	\coordinate (secao_t2) at (secao_c2);
+        \coordinate [above=0.01\paperheight] (capitulo_c2) at (secao_t2);
+      \fi
+
+      \ifdefined\capitulo
+        \node [name=capitulo_t2,
+        ,anchor=south west
+        ,fill=srebase03
+        ,text = srebase1
+        ,align=center
+        ,fill opacity=0.9
+        ,text opacity=1
+        ] at (capitulo_c2) {
+        \ifdefined\mobile
+          \begin{varwidth}{.925\textwidth}{\textsc{\capitulo}}\end{varwidth}};
+        \else
+          \begin{varwidth}{\textwidth}{\textsc{\capitulo}}\end{varwidth}};
+        \fi
+        \coordinate [above=0.01\paperheight] (titulo_c2) at (capitulo_t2.north west);
+      \else
+  	  	\coordinate (capitulo_t2) at (capitulo_c2);
+        \coordinate [above=0.01\paperheight] (titulo_c2) at (capitulo_t2);
+      \fi
+
+      \ifdefined\titulo
+        \node [name=titulo_t2,
+        ,anchor=south west
+        ,fill=srebase03
+        ,text = srebase1
+        ,align=center
+        ,fill opacity=0.9
+        ,text opacity=1
+        ] at (titulo_c2) {
+        \ifdefined\mobile
+          \begin{varwidth}{.925\textwidth}{\textsc{\titulo}}\end{varwidth}};
+        \else
+          \begin{varwidth}{\textwidth}{\textsc{\titulo}}\end{varwidth}};
+        \fi
+      	\coordinate [above=0.01\paperheight] (poster_c2) at (titulo_t2.south west);
+      \else
+  	  	\coordinate (titulo_t2) at (titulo_c2);
+        \coordinate [above=0.01\paperheight] (poster_c2) at (titulo_t2);
+      \fi
+      
+    \end{pgfonlayer}
+     
+  \end{tikzpicture}

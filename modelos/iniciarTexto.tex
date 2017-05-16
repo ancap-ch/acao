@@ -1,0 +1,55 @@
+\ifdefined\URL
+  \def \poster {Discussão em \ttfamily\scriptsize\relax$ \langle $\URL$ \rangle $.}
+\else
+  \def \poster {}
+\fi
+\ifdefined\incluirCapa
+  % \ifdefined\light
+  % \else
+  %   \colorlet{sol-tmp}{sol-rebase03}
+  %   \colorlet{sol-rebase03}{sol-rebase1}
+  %   \colorlet{sol-rebase1}{sol-tmp}
+  % \fi
+  \input{\modelos/capa.tex}
+  % \ifdefined\light
+  % \else
+  %   \colorlet{sol-tmp}{sol-rebase03}
+  %   \colorlet{sol-rebase03}{sol-rebase1}
+  %   \colorlet{sol-rebase1}{sol-tmp}
+  % \fi
+  \clearpage
+\else
+\fi % a próxima linha já deve ser o TOC
+\let\oldfootnoterule\footnoterule
+\renewcommand*\footnoterule{}
+\blfootnote{\today. \poster\caixa}
+%\renewcommand\cftaftertoctitle{\par\noindent\hrulefill\par\vskip-0.65em}
+\renewcommand\cftaftertoctitle{\par\vskip-0.65em}
+\tableofcontents
+\etocifwasempty 
+{
+    %\newline\newline % se tiver linha em branco acima, da pau
+    \let\footnoterule\oldfootnoterule
+}
+{
+  %\psvectorian{47} %
+  \def \hr{\leavevmode\leaders\hrule height 0.556pt\hfill\kern0pt}
+  \noindent\raisebox{.194pt}{\pgfornament[width=.068\textwidth]{14}}\noindent\hr
+  %\noindent\hr\raisebox{.300pt}{\pgfornament[width=.050\textwidth]{84}}\noindent\hr\hr\hr\hr\hr
+  %\noindent\hr\raisebox{.580pt}{\pgfornament[width=.111\textwidth]{89}}\noindent\hr\hr
+  %\noindent\hrulefill
+  \clearpage
+  \let\footnoterule\oldfootnoterule
+}
+\frenchspacing 
+\markdownSetup{rendererPrototypes={
+  image = {\begin{figure}[hbt!]
+    \centering
+    \includegraphics[max width=\textwidth]{#3}%
+    \ifx\empty#4\empty\else
+    \caption{#4}%
+    \fi
+    \label{fig:#1}%
+    \end{figure}}
+}}
+\markdownInput{\fontes/\caminho/artigo_tmp.md}
